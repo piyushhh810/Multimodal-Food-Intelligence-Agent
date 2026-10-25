@@ -12,7 +12,7 @@ import {
   AlertCircle 
 } from 'lucide-react';
 import CameraCapture from '../components/CameraCapture';
-import { recognizeFoodImage } from '../services/api';
+import { recognizeFoodImage, BACKEND_URL } from '../services/api';
 
 export default function FoodRecognitionPage({ onSelectDishForNutrition }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -46,7 +46,7 @@ export default function FoodRecognitionPage({ onSelectDishForNutrition }) {
     setLoading(true);
     try {
       // Fetch sample image from backend static mount
-      const res = await fetch(`http://localhost:8000${sample.file}`);
+      const res = await fetch(`${BACKEND_URL}${sample.file}`);
       const blob = await res.blob();
       const file = new File([blob], `${sample.label}.jpg`, { type: "image/jpeg" });
       setSelectedImage(file);

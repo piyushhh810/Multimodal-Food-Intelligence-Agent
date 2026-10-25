@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import CameraCapture from '../components/CameraCapture';
 import FreshnessMeter from '../components/FreshnessMeter';
-import { inspectFreshness } from '../services/api';
+import { inspectFreshness, BACKEND_URL } from '../services/api';
 
 export default function FreshnessDetectionPage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -44,7 +44,7 @@ export default function FreshnessDetectionPage() {
   const handleSelectSample = async (sample) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000${sample.file}`);
+      const res = await fetch(`${BACKEND_URL}${sample.file}`);
       const blob = await res.blob();
       const file = new File([blob], `${sample.label}.jpg`, { type: "image/jpeg" });
       setSelectedFile(file);
